@@ -536,8 +536,7 @@ $html2 .= '<table cellpadding="3" cellspacing="0" border="0" width="100%" class=
                     <td class="inner_td"  align="center" style="background-color:#f5eb95;"><b>ผลการพัฒนารายบุคคล</b></td>
                     <td class="inner_td"  style="background-color:#f5eb95;"></td>
                     <td class="inner_td"  style="background-color:#f5eb95;padding:5px;" align="center">
-                        รวมจำนวนชั่วโมงที่พัฒนา รอบที่ '.$part[1].'<br>
-                        <span style="padding:2px;">'.$date1.'</span> - <span style="padding:2px;">'.$date11.'</span> 
+                      
                     </td>
                     <td class="inner_td"  style="background-color:#f5eb95;" align="center"></td>
                     <td class="inner_td"  style="background-color:#f5eb95;padding:5px;" align="center"></td>
@@ -553,6 +552,8 @@ $html2 .= '<table cellpadding="3" cellspacing="0" border="0" width="100%" class=
             $mpdf->AddPage(); 
             $mpdf->WriteHTML($html2);
             // echo $html2;
+            $str_gap = '  รวมจำนวนชั่วโมงที่พัฒนา รอบที่ '.$part[1].'<br>
+                        <span style="padding:2px;">'.$date1.'</span> - <span style="padding:2px;">'.$date11.'</span> ';  // ไม่ได้ใช้ ยังไม่ได้เขียน code ต่อ
            
 $html3 = "";
 $html3 .= '<style> 
