@@ -1,8 +1,8 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/dbconn.php";
-include_once "../cpc/class-cpc.php";
-include_once "../myClass.php";
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../module/cpc/class-cpc.php";
+include_once "../module/myClass.php";
 
 $cpc = new cpc;
 $db = new DbConn;
@@ -12,7 +12,17 @@ $per_personal = $currentYear['data']['per_personal'];
 $cpcScoreTable  = $currentYear['data']['cpc_score'];
 $year = $currentYear['data']['table_year'];
 
-$yearById = $myClass->callYearByID(9);
+printf("\n/*********************************/
+/*   อัพเดท นำเข้า สมรรถนะ    */
+/*                               */
+/*********************************/ \n");
+printf("\n ใส่ปี และ รอบ การประเมินรอบที่แล้ว \n");
+$readYear = readline('Insert Year Old : ');
+$readTerm = readline('Insert Term Old etc.(1-2) : ');
+$tableYear = $readYear . "-" . $readTerm;
+
+$yearById = $myClass->callYearByTableYear($tableYear);
+print_r($tableYear);
 $yearOld = $yearById['data']['table_year'];
 $cpcScoreTableOld = $yearById['data']['cpc_score'];
 

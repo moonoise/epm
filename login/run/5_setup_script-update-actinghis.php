@@ -1,23 +1,43 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/ociConn.php";
-include_once "../../includes/dbconn.php";
-include_once "class-dpis.php";
-include_once "../myClass.php";
-include_once "../report/class-report.php";
+printf("\n/*********************************/
+/*   อัพเดท คนทดลองงาน    */
+/*                               */
+/*********************************/ \n");
+
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../includes/ociConn.php";
+
+include_once "../module/module_dpis/class-dpis.php";
+include_once "../module/myClass.php";
+include_once "../module/report/class-report.php";
 
 $dpis = new dpis;
 $myClass = new myClass;
 $db = new DbConn;
 $ociDB = new ociConn;
 $report = new report;
+
 $ociConn = $ociDB->ociConnect();
 
 $currentYear = $myClass->callYear();
 $log = array();
 $personalTable = $currentYear['data']['per_personal'];
 
-// $yearById = $myClass->callYearByID(9);
+$tableYear = $currentYear['data']['table_year'];
+$part = explode("-", $tableYear);
+
+if ($part[1] == '1') {
+    $date = new DateTime($currentYear['data']['end_evaluation_2']);
+    $date->sub(new DateInterval('P1Y'));
+    $date->add(new DateInterval('P1D'));
+} elseif ($part[1] == '2') {
+    $date = new DateTime($currentYear['data']['end_evaluation']);
+    $date->add(new DateInterval('P1D'));
+}
+
+$yy =  $date->format('Y-m-d');
+
 $id = array();
 $moveCode = array();
 $throughTrial = array();
@@ -33,8 +53,6 @@ try {
 } catch (Exception $e) {
     $err = $e->getMessage();
 }
-
-
 
 foreach ($result as $key => $value) {
     $sqlOracle = "SELECT PER_CARDNO FROM PER_ACTINGHIS WHERE MOV_CODE = 10211 AND PER_CARDNO = :per_cardno ";
@@ -58,7 +76,7 @@ foreach ($result as $key => $value) {
     }
 
 
-    $t = $report->throughTrial($value['per_cardno'], '2019-10-01', $personalTable);
+    $t = $report->throughTrial($value['per_cardno'], $yy, $personalTable);
     // $tt = ($t["result"] === true ? 1 : 2 );
     if ($t["result"] === true) {
         $tt = 1;
@@ -85,4 +103,5 @@ foreach ($result as $key => $value) {
     $i++;
     printf(" %s : %s  -> %s \r", $i, $value['per_cardno'], $tt);
 }
+printf("\n รายชื่อที่ยังอยู่ในช่วงทดลองงาน \n");
 print_r($throughTrial);

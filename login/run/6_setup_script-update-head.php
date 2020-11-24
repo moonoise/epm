@@ -1,7 +1,11 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/dbconn.php";
-include_once "../myClass.php";
+printf("\n/*********************************/
+/*   อัพเดท ผู้บังคับบัญชา    */
+/*                               */
+/*********************************/ \n");
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../module/myClass.php";
 
 $myClass = new myClass;
 $db = new DbConn;
