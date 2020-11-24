@@ -1,9 +1,9 @@
 <?php
 
-include_once "config.php";
-include_once "includes/dbconn.php";
-include_once "module/report/class-report.php";
-include_once "module/myClass.php";
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../module/report/class-report.php";
+include_once "../module/myClass.php";
 
 $report = new report;
 $myClass = new myClass;
@@ -80,3 +80,9 @@ foreach ($personalResult as $key => $value) {
 
     printf($key . " " . $msg_result_ . "\n");
 }
+
+
+/*********************************/
+/*   อัพเดท ความสืบหน้าการประเมิน    */
+/*                               */
+/*********************************/

@@ -691,7 +691,14 @@ class report extends DbConn
 
 
             try {
-                $sqlScoreResultUpdate = "UPDATE $cpc_score_result SET 
+
+                $sqlCheckCpcResult = "SELECT COUNT(*) FROM $cpc_score_result WHERE `per_cardno` = :per_cardno";
+                $stmCheckCpcResult = $this->conn->prepare($sqlCheckCpcResult);
+                $stmCheckCpcResult->bindParam(":per_cardno", $cpc['per_cardno']);
+                $stmCheckCpcResult->execute();
+
+                if ($stmCheckCpcResult->fetchAll(PDO::FETCH_ASSOC)) {
+                    $sqlScoreResultUpdate = "UPDATE $cpc_score_result SET 
                                         `cpc_score_result_yourself` = :cpcSum2_user,
                                         `cpc_score_result_head` = :cpcSum2_,
                                         `cpc_sum_weight` = :cpc_sum_weight,
@@ -699,16 +706,15 @@ class report extends DbConn
                                         `timestamp` = current_timestamp
                                     WHERE  per_cardno = :per_cardno";
 
-                $stmScoreUpdate = $this->conn->prepare($sqlScoreResultUpdate);
-                $stmScoreUpdate->bindParam(":cpcSum2_user", $cpc['cpcSum2_user']);
-                $stmScoreUpdate->bindParam(":cpcSum2_", $cpc['cpcSum2_']);
-                $stmScoreUpdate->bindParam(":cpc_sum_weight", $cpc['cpcSumWeight_']);
-                $stmScoreUpdate->bindParam(":scoring", $cpcScoring);
-                $stmScoreUpdate->bindParam(":per_cardno", $cpc['per_cardno']);
+                    $stmScoreUpdate = $this->conn->prepare($sqlScoreResultUpdate);
+                    $stmScoreUpdate->bindParam(":cpcSum2_user", $cpc['cpcSum2_user']);
+                    $stmScoreUpdate->bindParam(":cpcSum2_", $cpc['cpcSum2_']);
+                    $stmScoreUpdate->bindParam(":cpc_sum_weight", $cpc['cpcSumWeight_']);
+                    $stmScoreUpdate->bindParam(":scoring", $cpcScoring);
+                    $stmScoreUpdate->bindParam(":per_cardno", $cpc['per_cardno']);
 
-                $stmScoreUpdate->execute();
-
-                if ($stmScoreUpdate->rowCount() == 0) {
+                    $stmScoreUpdate->execute();
+                } else {
                     $sqlScoreResultInsert = "INSERT INTO $cpc_score_result (`per_cardno`,
                                                                         `cpc_score_result_yourself`,
                                                                         `cpc_score_result_head`,
@@ -780,6 +786,7 @@ class report extends DbConn
 
             foreach ($kpi['text'] as $keyKPI => $valueKPI) {
                 try {
+
                     $sqlKPIUpdate = "UPDATE $kpi_score SET `kpi_sum_head` = :kpi_sum_head 
                                         WHERE  kpi_score_id = :kpi_score_id ";
                     $stmKPIUpdate = $this->conn->prepare($sqlKPIUpdate);
@@ -791,7 +798,7 @@ class report extends DbConn
                     $errUpdate = $e->getMessage();
 
                     $log_['per_cardno'] = $kpi['per_cardno'];
-                    $log_['id'] = $value['kpi_score_id'];
+                    $log_['id'] = $valueKPI['kpi_score_id'];
                     $log_['error'] = $kpi_score . " " . $errUpdate;
                     $log[] = $log_;
                     $log_ = [];
@@ -799,21 +806,27 @@ class report extends DbConn
             }
 
             try {
-                $sqlKPIResultUpdate = "UPDATE $kpi_score_result SET 
+
+                $sqlCheckKpiResult = "SELECT COUNT(*) FROM $kpi_score_result WHERE `per_cardno` = :per_cardno";
+                $stmCheckKpiResult = $this->conn->prepare($sqlCheckKpiResult);
+                $stmCheckKpiResult->bindParam(":per_cardno", $kpi['per_cardno']);
+                $stmCheckKpiResult->execute();
+
+                if ($stmCheckKpiResult->fetchAll(PDO::FETCH_ASSOC)) {
+                    $sqlKPIResultUpdate = "UPDATE $kpi_score_result SET 
                                         `kpi_weight_sum` = :kpi_weight_sum ,
                                         `kpi_score_result` = :kpi_score_result,
                                         `scoring` = :scoring,
                                         `time_stamp` = current_timestamp
                                         WHERE `per_cardno` = :per_cardno ";
-                $stmKPIResultUpdate = $this->conn->prepare($sqlKPIResultUpdate);
-                $stmKPIResultUpdate->bindParam(":kpi_score_result", $kpi['kpiSum2_']);
-                $stmKPIResultUpdate->bindParam(":kpi_weight_sum", $kpi['kpiWeightSum_']);
-                $stmKPIResultUpdate->bindParam(":scoring", $kpiScoring);
-                $stmKPIResultUpdate->bindParam(":per_cardno", $kpi['per_cardno']);
+                    $stmKPIResultUpdate = $this->conn->prepare($sqlKPIResultUpdate);
+                    $stmKPIResultUpdate->bindParam(":kpi_score_result", $kpi['kpiSum2_']);
+                    $stmKPIResultUpdate->bindParam(":kpi_weight_sum", $kpi['kpiWeightSum_']);
+                    $stmKPIResultUpdate->bindParam(":scoring", $kpiScoring);
+                    $stmKPIResultUpdate->bindParam(":per_cardno", $kpi['per_cardno']);
 
-                $stmKPIResultUpdate->execute();
-
-                if ($stmKPIResultUpdate->rowCount() == 0) {
+                    $stmKPIResultUpdate->execute();
+                } else {
                     $sqlKpiResultInsert = "INSERT INTO $kpi_score_result  (
                                                                          `per_cardno`,
                                                                          `kpi_score_result`,

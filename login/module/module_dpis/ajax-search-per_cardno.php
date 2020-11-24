@@ -12,6 +12,3 @@ if ($_POST['per_cardno'] != "") {
 
     echo json_encode($arrPer_cardno['result']);
 }
-
-
-?>

@@ -39,29 +39,28 @@ foreach ($result as $key => $value) {
                             FROM  $kpiScoreTableOld
                             WHERE per_cardno = :per_cardno AND soft_delete = 0 ";
         $stmKpi = $db->conn->prepare($sqlKpi);
-        $stmKpi->bindParam(":per_cardno",$value['per_cardno']);
+        $stmKpi->bindParam(":per_cardno", $value['per_cardno']);
         $stmKpi->execute();
-       $resultKpi =  $stmKpi->fetchAll(PDO::FETCH_ASSOC);
-       $countKpi = $stmKpi->rowCount();
+        $resultKpi =  $stmKpi->fetchAll(PDO::FETCH_ASSOC);
+        $countKpi = $stmKpi->rowCount();
     } catch (\Exception $e) {
         $err = $e->getMessage();
     }
-    
+
     if ($countKpi > 0) {
-       
-            // print_r($valueKpi);
-            $r = $myClass->pdoMultiInsert($kpiScoreTable,$resultKpi);
-            if ($r['success'] == true) {
-                array_push($logOk,$value['per_cardno']);
-            }else {
-                array_push($logError,$value['per_cardno']);
-            }
-        
-    }else {
-        array_push($log,$value['per_cardno']);
+
+        // print_r($valueKpi);
+        $r = $myClass->pdoMultiInsert($kpiScoreTable, $resultKpi);
+        if ($r['success'] == true) {
+            array_push($logOk, $value['per_cardno']);
+        } else {
+            array_push($logError, $value['per_cardno']);
+        }
+    } else {
+        array_push($log, $value['per_cardno']);
     }
 
-   printf("%s : %s  \r",$key+1 , $value['per_cardno']);
+    printf("%s : %s  \r", $key + 1, $value['per_cardno']);
 }
 
 print_r($logError);

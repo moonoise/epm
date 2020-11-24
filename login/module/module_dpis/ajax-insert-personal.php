@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once "../../config.php";
 include_once "../../includes/ociConn.php";
 include_once "../../includes/dbconn.php";
@@ -17,14 +17,11 @@ if ($_POST['per_cardno'] != "") {
     // echo "<pre>";
     // print_r($result['result']);
     // echo "</pre>";
-    $r = $dpis->insertPer_Personal($result['result'],$personalTable);
-    if($r['success'] === true){
+    $r = $dpis->insertPer_Personal($result['result'], $personalTable);
+    if ($r['success'] === true) {
         echo json_encode($r);
-    }else{
-        $rr = $dpis->updatePer_Personal($result['result'],$personalTable);
+    } else {
+        $rr = $dpis->updatePer_Personal($result['result'], $personalTable);
         echo json_encode($rr);
     }
-    
-    
 }
-

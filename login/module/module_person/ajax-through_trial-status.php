@@ -40,4 +40,3 @@ if($err != ""){
 }
 
 echo json_encode($success);
-?>
