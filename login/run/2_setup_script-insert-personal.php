@@ -1,9 +1,11 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/ociConn.php";
-include_once "../../includes/dbconn.php";
-include_once "class-dpis.php";
-include_once "../myClass.php";
+
+
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../includes/ociConn.php";
+include_once "../module/module_dpis/class-dpis.php";
+include_once "../module/myClass.php";
 
 $dpis = new dpis;
 $myClass = new myClass;
@@ -38,7 +40,5 @@ foreach ($res['PER_CARDNO'] as $key => $value) {
     printf("%s   \n", $value);
     // print_r($value);
 }
-
-
 
 print_r($log);

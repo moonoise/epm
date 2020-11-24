@@ -1,7 +1,9 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/dbconn.php";
-include_once "../myClass.php";
+
+
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../module/myClass.php";
 
 $myClass = new myClass;
 $db = new DbConn;

@@ -1,5 +1,13 @@
 <?php
 
+printf("\n/*********************************/
+/*   อัพเดท ความคืบหน้าการประเมิน    */
+/*                               */
+/*********************************/ \n");
+
+sleep(2);
+
+
 include_once "../config.php";
 include_once "../includes/dbconn.php";
 include_once "../module/report/class-report.php";
@@ -19,7 +27,6 @@ $cpcScoreResultTable = $currentYear['data']['cpc_score_result'];
 
 $cpcTypeKey = array(1, 2, 3);
 $cpcTypeKey2 = array(1, 2, 3, 4, 5, 6);
-
 
 $msg_error = "";
 $log = array();
@@ -60,7 +67,6 @@ foreach ($personalResult as $key => $value) {
         $msg_result_ .= "  สมรรถนะ ยังประเมินไม่เสร็จ";
     }
 
-
     $kpiDone = $report->KPIscoreDone($per_cardno, $kpiScoreTable, $year);
     if ($kpiDone['success'] == true && $kpiDone['result'] === 0 && $kpiDone['checkaccept'] === 0) {
 
@@ -80,9 +86,3 @@ foreach ($personalResult as $key => $value) {
 
     printf($key . " " . $msg_result_ . "\n");
 }
-
-
-/*********************************/
-/*   อัพเดท ความสืบหน้าการประเมิน    */
-/*                               */
-/*********************************/

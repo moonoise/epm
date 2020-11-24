@@ -1,10 +1,9 @@
 <?php
-include_once "../../config.php";
-include_once "../../includes/dbconn.php";
-include_once "../cpc/class-cpc.php";
-include_once "../myClass.php";
 
-$cpc = new cpc;
+include_once "../config.php";
+include_once "../includes/dbconn.php";
+include_once "../module/myClass.php";
+
 $db = new DbConn;
 $myClass = new myClass;
 $currentYear = $myClass->callYear();
@@ -12,7 +11,16 @@ $per_personal = $currentYear['data']['per_personal'];
 $kpiScoreTable = $currentYear['data']['kpi_score'];
 $year = $currentYear['data']['table_year'];
 
-$yearById = $myClass->callYearByID(9);
+printf("\n/*********************************/
+/*   อัพเดท นำเข้า KPI    */
+/*                               */
+/*********************************/ \n");
+printf("\n ใส่ปี และ รอบ การประเมินรอบที่แล้ว \n");
+$readYear = readline('Insert Year : ');
+$readTerm = readline('Insert Term etc.(1-2) : ');
+$tableYear = $readYear . "-" . $readTerm;
+
+$yearById = $myClass->callYearByTableYear($tableYear);
 $yearOld = $yearById['data']['table_year'];
 $kpiScoreTableOld = $yearById['data']['kpi_score'];
 $countKpi = 0;
