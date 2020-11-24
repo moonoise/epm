@@ -1,5 +1,5 @@
 <?php
-class dateCovert 
+class dateCovert
 {
     function shortMonth($mo)
     {
@@ -50,7 +50,7 @@ class dateCovert
         $yy    = substr($y, 2, 2);
         $m     = $exp[1];
         $d     = $exp[2];
-        $month = shortMonth($m);
+        $month = $this->shortMonth($m);
         if (substr($d, 0, 1) == 0) {
             $d = substr($d, 1, 1);
         }
@@ -90,11 +90,3 @@ class dateCovert
         return $NewDate;
     }
 }
-
-
-
-
-
-
-
-?>
