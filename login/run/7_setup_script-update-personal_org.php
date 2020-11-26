@@ -13,7 +13,16 @@ $log = array();
 $i = 0;
 $personalTable = $currentYear['data']['per_personal'];
 
-$yearById = $myClass->callYearByID(9);
+printf("\n/*********************************/
+/*   อัพเดท หัวหน้า    */
+/*                               */
+/*********************************/ \n");
+printf("\n ใส่ปี และ รอบ การประเมินรอบที่แล้ว \n");
+$readYear = readline('Insert Year : ');
+$readTerm = readline('Insert Term etc.(1-2) : ');
+$tableYear = $readYear . "-" . $readTerm;
+$yearById = $myClass->callYearByTableYear($tableYear);
+$yearOld = $yearById['data']['table_year'];
 $personalTableOld = $yearById['data']['per_personal'];
 
 try {
