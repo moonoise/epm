@@ -44,6 +44,7 @@ foreach ($arrPer_cardno as $key => $value) {
         $result = $stmCheck->fetchAll(PDO::FETCH_ASSOC);
     } catch (\Exception $e) {
         $err = $e->getMessage();
+        printf("%s \n", $err);
     }
     if ($stmCheck->rowCount() == 1 && $value['pos_no'] == $result[0]['pos_no']) {
         try {
@@ -70,6 +71,7 @@ foreach ($arrPer_cardno as $key => $value) {
             }
         } catch (\Exception $e) {
             $err = $e->getMessage();
+            printf("%s \n", $err);
         }
         $i++;
         printf("%s : %s \n", $i, $value['per_cardno']);

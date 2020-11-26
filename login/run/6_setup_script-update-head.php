@@ -35,10 +35,10 @@ try {
 } catch (\Exception $e) {
     $err = $e->getMessage();
 }
-
+// print_r($personalTable);
 foreach ($arrPer_cardno as $key => $value) {
     try {
-        $sqlUpdate = "UPDATE $personalTable SET `head` = :head,
+        $sqlUpdate = "UPDATE $personalTable SET `head` = :head
                                                       WHERE `per_cardno` = :per_cardno ";
         $stmUpdate = $db->conn->prepare($sqlUpdate);
         $stmUpdate->bindParam(":head", $value['head']);
@@ -50,6 +50,7 @@ foreach ($arrPer_cardno as $key => $value) {
         }
     } catch (\Exception $e) {
         $err = $e->getMessage();
+        printf("%s \n", $err);
     }
     $i++;
     printf("%s : %s -> %s \n", $i, $value['per_cardno'], $value['head']);
