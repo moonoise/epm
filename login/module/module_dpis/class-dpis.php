@@ -83,10 +83,6 @@ class dpis extends ociConn
         $success['result'] = $res;
         oci_free_statement($stid);
         return $success;
-
-        // AND
-        //             per_personal.per_status = 1
-
     }
 
     function queryPer_cardno($org_id)

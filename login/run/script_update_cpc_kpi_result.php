@@ -7,7 +7,6 @@ printf("\n/*********************************/
 
 sleep(2);
 
-
 include_once "../config.php";
 include_once "../includes/dbconn.php";
 include_once "../module/report/class-report.php";
