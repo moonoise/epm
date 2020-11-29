@@ -27,7 +27,8 @@ $result = $stm->fetchAll();
   <meta charset="utf-8">
   <title>Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href=<?php echo __PATH_EXTERNAL__ . "icon/rid.png"; ?>> <!-- Bootstrap -->
+  <link rel="icon" href="../external/icon/rid.png">
+  <!-- Bootstrap -->
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
@@ -38,7 +39,7 @@ $result = $stm->fetchAll();
   <style>
     .bg-head {
       /* The image used */
-      background-image: url(<?php echo __PATH_EXTERNAL__ . "background/6726.png"; ?> );
+      background-image: url("../external/background/6726.png");
 
       /* Full height */
       height: 20%;
@@ -51,7 +52,7 @@ $result = $stm->fetchAll();
     }
 
     body {
-      background-image: url(<?php echo __PATH_EXTERNAL__ . "background/04.jpg"; ?> );
+      background-image: url("../external/background/04.jpg");
       background-repeat: no-repeat;
     }
 
